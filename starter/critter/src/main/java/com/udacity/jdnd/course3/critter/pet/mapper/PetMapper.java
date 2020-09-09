@@ -27,6 +27,9 @@ public class PetMapper {
         petDTO.setNotes(petEntity.getNotes());
         petDTO.setBirthDate(petEntity.getBirthDate());
         petDTO.setType(petEntity.getPetType());
+        if (petEntity.getCustomer() != null) {
+            petDTO.setOwnerId(petEntity.getCustomer().getId());
+        }
         return petDTO;
     }
 

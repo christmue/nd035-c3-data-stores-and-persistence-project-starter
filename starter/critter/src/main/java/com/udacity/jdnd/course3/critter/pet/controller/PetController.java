@@ -35,7 +35,7 @@ public class PetController {
         }
         Pet pet = petMapper.DTOToEntity(petDTO);
         pet.setCustomer(customer);
-        Pet savedPet = petService.createPet(pet);
+        Pet savedPet = petService.savePet(pet);
         return petMapper.EntityToDTO(savedPet);
     }
 

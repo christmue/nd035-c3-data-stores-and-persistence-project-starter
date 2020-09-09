@@ -33,7 +33,7 @@ public class EmployeeService {
         List<Employee> employees = employeeRepository.findAll();
         return employees.stream()
                 .filter(e -> e.getEmployeeSkills().containsAll(requiredSkills))
-                .filter(e -> e.getDaysAvailable().contains(date))
+                .filter(e -> e.getDaysAvailable().contains(date.getDayOfWeek()))
                 .collect(Collectors.toList());
     }
 
