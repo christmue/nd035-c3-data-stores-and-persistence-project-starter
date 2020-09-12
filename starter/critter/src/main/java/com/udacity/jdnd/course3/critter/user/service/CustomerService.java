@@ -17,9 +17,6 @@ public class CustomerService {
     @Autowired
     CustomerRepository customerRepository;
 
-    @Autowired
-    PetService petService;
-
     public Customer saveCustomer(Customer customer) {
         return customerRepository.save(customer);
     }

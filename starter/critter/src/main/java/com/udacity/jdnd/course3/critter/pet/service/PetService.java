@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -40,5 +42,14 @@ public class PetService {
 
     public List<Pet> getPetsByOwner(Customer customer) {
         return petRepository.findAllByOwner(customer);
+    }
+
+    public List<Pet> getPetsByIds(List<Long> petIds) {
+        List<Pet> pets = new ArrayList<>();
+        for (Long id : petIds) {
+            Optional<Pet> petOptional = petRepository.findById(id);
+            petOptional.ifPresent(pets::add);
+        }
+        return pets;
     }
 }

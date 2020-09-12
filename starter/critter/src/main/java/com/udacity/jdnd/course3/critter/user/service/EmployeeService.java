@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -29,9 +30,19 @@ public class EmployeeService {
         return optionalEmployee.orElse(null);
     }
 
+    public List<Employee> getEmployeesByIds(List<Long> employeeIds) {
+        List<Employee> employees = new ArrayList<>();
+        for (Long id: employeeIds) {
+            Optional<Employee> employeeOptional = employeeRepository.findById(id);
+            employeeOptional.ifPresent(employees::add);
+        }
+        return employees;
+    }
+
     public List<Employee> getEmployeesByService(Set<EmployeeSkill> requiredSkills, LocalDate date) {
         List<Employee> employees = employeeRepository.findAll();
-        return employees.stream()
+        return employees
+                .stream()
                 .filter(e -> e.getEmployeeSkills().containsAll(requiredSkills))
                 .filter(e -> e.getDaysAvailable().contains(date.getDayOfWeek()))
                 .collect(Collectors.toList());
